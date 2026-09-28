@@ -1,0 +1,1652 @@
+{
+  "id": 10000,
+  "cells": [
+    {
+      "i": "cdf2c556-3282-412e-a32a-32aa876d2298",
+      "x": 0,
+      "y": 0,
+      "w": 4,
+      "h": 4,
+      "name": "CPU usage, %",
+      "queries": [
+        {
+          "query": "SELECT 100 - mean(\"usage_idle\") AS \"cpu_used\" FROM \"telegraf\".\"autogen\".\"cpu\" WHERE time > :dashboardTime: AND \"cpu\"='cpu-total' GROUP BY time(:interval:) FILL(null)",
+          "queryConfig": {
+            "id": "a65c204d-c091-4281-a398-7a2825725ca8",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT 100 - mean(\"usage_idle\") AS \"cpu_used\" FROM \"telegraf\".\"autogen\".\"cpu\" WHERE time > :dashboardTime: AND \"cpu\"='cpu-total' GROUP BY time(:interval:) FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            "100"
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "%",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "df1b8835-7790-4a1f-b5bd-0a54ef63696b",
+      "x": 4,
+      "y": 0,
+      "w": 4,
+      "h": 4,
+      "name": "Memory used, %",
+      "queries": [
+        {
+          "query": "SELECT mean(\"used_percent\") AS \"mem_used\" FROM \"telegraf\".\"autogen\".\"mem\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+          "queryConfig": {
+            "id": "4d61d4bb-50b5-4c36-ad96-6b5b512a08af",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT mean(\"used_percent\") AS \"mem_used\" FROM \"telegraf\".\"autogen\".\"mem\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            "100"
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "%",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "85c9e7b2-f5fe-475d-b765-aaffe72c6240",
+      "x": 8,
+      "y": 0,
+      "w": 4,
+      "h": 4,
+      "name": "Load average",
+      "queries": [
+        {
+          "query": "SELECT mean(\"load1\") AS \"load1\", mean(\"load5\") AS \"load5\", mean(\"load15\") AS \"load15\" FROM \"telegraf\".\"autogen\".\"system\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+          "queryConfig": {
+            "id": "b55d9c4c-f060-4875-b643-ce14582ccf14",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT mean(\"load1\") AS \"load1\", mean(\"load5\") AS \"load5\", mean(\"load15\") AS \"load15\" FROM \"telegraf\".\"autogen\".\"system\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "7ae9976d-77d7-4c96-8821-5c71ac4defe6",
+      "x": 0,
+      "y": 4,
+      "w": 4,
+      "h": 4,
+      "name": "Disk / used, %",
+      "queries": [
+        {
+          "query": "SELECT mean(\"used_percent\") AS \"disk_used\" FROM \"telegraf\".\"autogen\".\"disk\" WHERE time > :dashboardTime: AND \"path\"='/' GROUP BY time(:interval:) FILL(null)",
+          "queryConfig": {
+            "id": "2b701b2b-cc70-42bf-abf4-82baa35b59b4",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT mean(\"used_percent\") AS \"disk_used\" FROM \"telegraf\".\"autogen\".\"disk\" WHERE time > :dashboardTime: AND \"path\"='/' GROUP BY time(:interval:) FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            "100"
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "%",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "d751de6f-cef2-4066-b63f-646cd428ec3b",
+      "x": 4,
+      "y": 4,
+      "w": 4,
+      "h": 4,
+      "name": "Container CPU, %",
+      "queries": [
+        {
+          "query": "SELECT mean(\"usage_percent\") AS \"cpu\" FROM \"telegraf\".\"autogen\".\"docker_container_cpu\" WHERE time > :dashboardTime: AND \"cpu\"='cpu-total' GROUP BY time(:interval:), \"container_name\" FILL(null)",
+          "queryConfig": {
+            "id": "95aff663-e94a-4075-9944-9bdef3a2b271",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT mean(\"usage_percent\") AS \"cpu\" FROM \"telegraf\".\"autogen\".\"docker_container_cpu\" WHERE time > :dashboardTime: AND \"cpu\"='cpu-total' GROUP BY time(:interval:), \"container_name\" FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "%",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "d60b6055-fe94-4176-b575-354880667f70",
+      "x": 8,
+      "y": 4,
+      "w": 4,
+      "h": 4,
+      "name": "Container memory, %",
+      "queries": [
+        {
+          "query": "SELECT mean(\"usage_percent\") AS \"mem\" FROM \"telegraf\".\"autogen\".\"docker_container_mem\" WHERE time > :dashboardTime: GROUP BY time(:interval:), \"container_name\" FILL(null)",
+          "queryConfig": {
+            "id": "b2b46465-5626-44d6-ad63-de122a14dd68",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT mean(\"usage_percent\") AS \"mem\" FROM \"telegraf\".\"autogen\".\"docker_container_mem\" WHERE time > :dashboardTime: GROUP BY time(:interval:), \"container_name\" FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "%",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "54724e22-6640-453d-ada1-a5921299e1ae",
+      "x": 0,
+      "y": 8,
+      "w": 4,
+      "h": 4,
+      "name": "Container network rx, bit/s",
+      "queries": [
+        {
+          "query": "SELECT non_negative_derivative(mean(\"rx_bytes\"), 1s) * 8 AS \"rx\" FROM \"telegraf\".\"autogen\".\"docker_container_net\" WHERE time > :dashboardTime: GROUP BY time(:interval:), \"container_name\" FILL(null)",
+          "queryConfig": {
+            "id": "50ca0d6d-b53d-4858-8569-7a9195ae2280",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT non_negative_derivative(mean(\"rx_bytes\"), 1s) * 8 AS \"rx\" FROM \"telegraf\".\"autogen\".\"docker_container_net\" WHERE time > :dashboardTime: GROUP BY time(:interval:), \"container_name\" FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "bit/s",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "6ca204d2-5b81-44aa-b9e6-4e793b632f69",
+      "x": 4,
+      "y": 8,
+      "w": 4,
+      "h": 4,
+      "name": "Nginx connections",
+      "queries": [
+        {
+          "query": "SELECT mean(\"active\") AS \"active\", mean(\"reading\") AS \"reading\", mean(\"writing\") AS \"writing\", mean(\"waiting\") AS \"waiting\" FROM \"telegraf\".\"autogen\".\"nginx\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+          "queryConfig": {
+            "id": "fa55a310-8b01-44ed-be45-aa31b6cd46a7",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT mean(\"active\") AS \"active\", mean(\"reading\") AS \"reading\", mean(\"writing\") AS \"writing\", mean(\"waiting\") AS \"waiting\" FROM \"telegraf\".\"autogen\".\"nginx\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "9160efb6-be18-4f0a-9093-a132fa9975e9",
+      "x": 8,
+      "y": 8,
+      "w": 4,
+      "h": 4,
+      "name": "Nginx requests/s",
+      "queries": [
+        {
+          "query": "SELECT non_negative_derivative(max(\"requests\"), 1s) AS \"req_per_sec\" FROM \"telegraf\".\"autogen\".\"nginx\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+          "queryConfig": {
+            "id": "61533ce9-c929-4570-aa54-95f40ca9a8b2",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT non_negative_derivative(max(\"requests\"), 1s) AS \"req_per_sec\" FROM \"telegraf\".\"autogen\".\"nginx\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "rps",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "7d6d88db-2e0f-462b-bdad-2906bc2676d7",
+      "x": 0,
+      "y": 12,
+      "w": 4,
+      "h": 4,
+      "name": "HTTP responses by status class",
+      "queries": [
+        {
+          "query": "SELECT count(\"status\") AS \"2xx\" FROM \"telegraf\".\"autogen\".\"nginx_access\" WHERE time > :dashboardTime: AND \"status\" >= 200 AND \"status\" < 300 GROUP BY time(:interval:) FILL(0)",
+          "queryConfig": {
+            "id": "d73584b5-034f-4149-a75c-575c57809334",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT count(\"status\") AS \"2xx\" FROM \"telegraf\".\"autogen\".\"nginx_access\" WHERE time > :dashboardTime: AND \"status\" >= 200 AND \"status\" < 300 GROUP BY time(:interval:) FILL(0)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        },
+        {
+          "query": "SELECT count(\"status\") AS \"3xx\" FROM \"telegraf\".\"autogen\".\"nginx_access\" WHERE time > :dashboardTime: AND \"status\" >= 300 AND \"status\" < 400 GROUP BY time(:interval:) FILL(0)",
+          "queryConfig": {
+            "id": "47798b14-3b68-4365-b538-84360e4e399b",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT count(\"status\") AS \"3xx\" FROM \"telegraf\".\"autogen\".\"nginx_access\" WHERE time > :dashboardTime: AND \"status\" >= 300 AND \"status\" < 400 GROUP BY time(:interval:) FILL(0)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        },
+        {
+          "query": "SELECT count(\"status\") AS \"4xx\" FROM \"telegraf\".\"autogen\".\"nginx_access\" WHERE time > :dashboardTime: AND \"status\" >= 400 AND \"status\" < 500 GROUP BY time(:interval:) FILL(0)",
+          "queryConfig": {
+            "id": "1fd04ab0-dbf1-42b1-83c8-40aeadf4dfc7",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT count(\"status\") AS \"4xx\" FROM \"telegraf\".\"autogen\".\"nginx_access\" WHERE time > :dashboardTime: AND \"status\" >= 400 AND \"status\" < 500 GROUP BY time(:interval:) FILL(0)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        },
+        {
+          "query": "SELECT count(\"status\") AS \"5xx\" FROM \"telegraf\".\"autogen\".\"nginx_access\" WHERE time > :dashboardTime: AND \"status\" >= 500 GROUP BY time(:interval:) FILL(0)",
+          "queryConfig": {
+            "id": "0848b360-6572-4759-ac5b-7b477fa5a99c",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT count(\"status\") AS \"5xx\" FROM \"telegraf\".\"autogen\".\"nginx_access\" WHERE time > :dashboardTime: AND \"status\" >= 500 GROUP BY time(:interval:) FILL(0)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "req",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "b0401f21-f817-40a8-9320-2972148bfef1",
+      "x": 4,
+      "y": 12,
+      "w": 4,
+      "h": 4,
+      "name": "Nginx request time, s",
+      "queries": [
+        {
+          "query": "SELECT mean(\"request_time\") AS \"mean\", percentile(\"request_time\", 95) AS \"p95\", max(\"request_time\") AS \"max\" FROM \"telegraf\".\"autogen\".\"nginx_access\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+          "queryConfig": {
+            "id": "d0a47678-c915-4d8a-b6e2-23a19f5c7f76",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT mean(\"request_time\") AS \"mean\", percentile(\"request_time\", 95) AS \"p95\", max(\"request_time\") AS \"max\" FROM \"telegraf\".\"autogen\".\"nginx_access\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "s",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "35ac9fa7-1411-4d9e-8738-3a337a7b83ac",
+      "x": 8,
+      "y": 12,
+      "w": 4,
+      "h": 4,
+      "name": "PHP-FPM processes",
+      "queries": [
+        {
+          "query": "SELECT mean(\"active_processes\") AS \"active\", mean(\"idle_processes\") AS \"idle\", mean(\"total_processes\") AS \"total\" FROM \"telegraf\".\"autogen\".\"phpfpm\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+          "queryConfig": {
+            "id": "0f2d0ffe-27aa-452b-b634-804ef278fb4e",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT mean(\"active_processes\") AS \"active\", mean(\"idle_processes\") AS \"idle\", mean(\"total_processes\") AS \"total\" FROM \"telegraf\".\"autogen\".\"phpfpm\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "1aa8e289-7706-4a8f-a769-404d04f94048",
+      "x": 0,
+      "y": 16,
+      "w": 4,
+      "h": 4,
+      "name": "PHP-FPM queue / max children reached",
+      "queries": [
+        {
+          "query": "SELECT max(\"listen_queue\") AS \"listen_queue\", max(\"max_children_reached\") AS \"max_children_reached\", max(\"slow_requests\") AS \"slow_requests\" FROM \"telegraf\".\"autogen\".\"phpfpm\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+          "queryConfig": {
+            "id": "f6083cbe-6bbf-4eaa-b233-64f43a29c806",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT max(\"listen_queue\") AS \"listen_queue\", max(\"max_children_reached\") AS \"max_children_reached\", max(\"slow_requests\") AS \"slow_requests\" FROM \"telegraf\".\"autogen\".\"phpfpm\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "6e87691f-a949-4005-aead-27d551289d6e",
+      "x": 4,
+      "y": 16,
+      "w": 4,
+      "h": 4,
+      "name": "MySQL threads",
+      "queries": [
+        {
+          "query": "SELECT mean(\"threads_connected\") AS \"connected\", mean(\"threads_running\") AS \"running\" FROM \"telegraf\".\"autogen\".\"mysql\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+          "queryConfig": {
+            "id": "998116a7-a97a-4d05-a846-91a56af83b2a",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT mean(\"threads_connected\") AS \"connected\", mean(\"threads_running\") AS \"running\" FROM \"telegraf\".\"autogen\".\"mysql\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "13c830c3-1b01-40c7-b823-8b90e4583c21",
+      "x": 8,
+      "y": 16,
+      "w": 4,
+      "h": 4,
+      "name": "MySQL queries/s and slow queries/s",
+      "queries": [
+        {
+          "query": "SELECT non_negative_derivative(max(\"queries\"), 1s) AS \"queries_per_sec\" FROM \"telegraf\".\"autogen\".\"mysql\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+          "queryConfig": {
+            "id": "7b68830c-ed3d-429d-af79-77ac673ecb46",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT non_negative_derivative(max(\"queries\"), 1s) AS \"queries_per_sec\" FROM \"telegraf\".\"autogen\".\"mysql\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        },
+        {
+          "query": "SELECT non_negative_derivative(max(\"slow_queries\"), 1s) AS \"slow_per_sec\" FROM \"telegraf\".\"autogen\".\"mysql\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+          "queryConfig": {
+            "id": "e6b80ba5-7309-4277-b576-d85634728da8",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT non_negative_derivative(max(\"slow_queries\"), 1s) AS \"slow_per_sec\" FROM \"telegraf\".\"autogen\".\"mysql\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "2826362a-f3bb-4bd0-a3a4-0079ea433a5a",
+      "x": 0,
+      "y": 20,
+      "w": 4,
+      "h": 4,
+      "name": "Component TCP check (0 = UP)",
+      "queries": [
+        {
+          "query": "SELECT max(\"result_code\") AS \"result_code\" FROM \"telegraf\".\"autogen\".\"net_response\" WHERE time > :dashboardTime: GROUP BY time(:interval:), \"component\" FILL(null)",
+          "queryConfig": {
+            "id": "8a9d3725-7c62-4f6c-94fd-6a67c63ea460",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT max(\"result_code\") AS \"result_code\" FROM \"telegraf\".\"autogen\".\"net_response\" WHERE time > :dashboardTime: GROUP BY time(:interval:), \"component\" FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    },
+    {
+      "i": "e02014fa-701b-42d8-90c0-b3ff293a3368",
+      "x": 4,
+      "y": 20,
+      "w": 4,
+      "h": 4,
+      "name": "WordPress HTTP check: response time, s",
+      "queries": [
+        {
+          "query": "SELECT mean(\"response_time\") AS \"response_time\", max(\"result_code\") AS \"result_code\" FROM \"telegraf\".\"autogen\".\"http_response\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+          "queryConfig": {
+            "id": "c9fa825d-7415-45b3-bd3c-d97c15af9635",
+            "database": "",
+            "measurement": "",
+            "retentionPolicy": "",
+            "fields": [],
+            "tags": {},
+            "groupBy": {
+              "time": "",
+              "tags": []
+            },
+            "areTagsAccepted": false,
+            "rawText": "SELECT mean(\"response_time\") AS \"response_time\", max(\"result_code\") AS \"result_code\" FROM \"telegraf\".\"autogen\".\"http_response\" WHERE time > :dashboardTime: GROUP BY time(:interval:) FILL(null)",
+            "range": null,
+            "shifts": null
+          },
+          "source": "/chronograf/v1/sources/10000"
+        }
+      ],
+      "axes": {
+        "x": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y": {
+          "bounds": [
+            "0",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "s",
+          "base": "10",
+          "scale": "linear"
+        },
+        "y2": {
+          "bounds": [
+            "",
+            ""
+          ],
+          "label": "",
+          "prefix": "",
+          "suffix": "",
+          "base": "10",
+          "scale": "linear"
+        }
+      },
+      "type": "line",
+      "colors": [],
+      "legend": {},
+      "note": "",
+      "noteVisibility": "default",
+      "tableOptions": {
+        "verticalTimeAxis": true,
+        "sortBy": {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        },
+        "wrapping": "truncate",
+        "fixFirstColumn": true
+      },
+      "fieldOptions": [
+        {
+          "internalName": "time",
+          "displayName": "",
+          "visible": true
+        }
+      ],
+      "timeFormat": "MM/DD/YYYY HH:mm:ss",
+      "decimalPlaces": {
+        "isEnforced": true,
+        "digits": 2
+      }
+    }
+  ],
+  "templates": [],
+  "name": "CMS Overview (WordPress: nginx + php-fpm + MySQL)",
+  "organization": "default"
+}

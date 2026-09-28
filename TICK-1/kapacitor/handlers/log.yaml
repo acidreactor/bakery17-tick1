@@ -1,0 +1,5 @@
+id: cms-log
+topic: cms
+kind: log
+options:
+  path: /var/log/kapacitor/cms-topic.log

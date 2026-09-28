@@ -1,0 +1,173 @@
+# wordpress (nginx + php-fpm + mysql) и tick стек
+
+name: tick1
+
+x-restart: &restart
+  restart: unless-stopped
+
+services:
+  # cms
+  mysql:
+    <<: *restart
+    image: mysql:8.0
+    container_name: mysql
+    command: ["--default-authentication-plugin=mysql_native_password"]
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
+      MYSQL_USER: ${WORDPRESS_DB_USER}
+      MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      MYSQL_MONITOR_USER: ${MYSQL_MONITOR_USER}
+      MYSQL_MONITOR_PASSWORD: ${MYSQL_MONITOR_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+  php:
+    <<: *restart
+    image: wordpress:php8.2-fpm
+    container_name: php-fpm
+    environment:
+      WORDPRESS_DB_HOST: mysql:3306
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+    volumes:
+      - wordpress:/var/www/html
+      # включаем status page у php-fpm
+      - ./php/zz-status.conf:/usr/local/etc/php-fpm.d/zz-status.conf:ro
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  nginx:
+    <<: *restart
+    image: nginx:1.27-alpine
+    container_name: nginx
+    ports:
+      - "${NGINX_PORT}:80"
+    volumes:
+      - wordpress:/var/www/html:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - nginx-logs:/var/log/nginx
+    depends_on:
+      - php
+
+  # tick
+  influxdb:
+    <<: *restart
+    image: influxdb:1.8
+    container_name: influxdb
+    environment:
+      INFLUXDB_DB: telegraf
+      INFLUXDB_HTTP_LOG_ENABLED: "false"
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb-data:/var/lib/influxdb
+      - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8086/ping || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  telegraf:
+    <<: *restart
+    image: telegraf:1.30
+    container_name: telegraf
+    user: root
+    entrypoint: ["telegraf"]
+    command: ["--config", "/etc/telegraf/telegraf.conf"]
+    environment:
+      HOST_PROC: /hostfs/proc
+      HOST_SYS: /hostfs/sys
+      HOST_ETC: /hostfs/etc
+      HOST_VAR: /hostfs/var
+      HOST_RUN: /hostfs/run
+      HOST_MOUNT_PREFIX: /hostfs
+      MYSQL_MONITOR_USER: ${MYSQL_MONITOR_USER}
+      MYSQL_MONITOR_PASSWORD: ${MYSQL_MONITOR_PASSWORD}
+    volumes:
+      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - /:/hostfs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - nginx-logs:/var/log/nginx:ro
+    depends_on:
+      influxdb:
+        condition: service_healthy
+      nginx:
+        condition: service_started
+      php:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+
+  kapacitor:
+    <<: *restart
+    image: kapacitor:1.7
+    container_name: kapacitor
+    hostname: kapacitor
+    user: root
+    environment:
+      KAPACITOR_HOSTNAME: kapacitor
+      KAPACITOR_TELEGRAM_ENABLED: ${TELEGRAM_ENABLED}
+      KAPACITOR_TELEGRAM_TOKEN: ${TELEGRAM_TOKEN}
+      KAPACITOR_TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID}
+    ports:
+      - "9092:9092"
+    volumes:
+      - ./kapacitor/kapacitor.conf:/etc/kapacitor/kapacitor.conf:ro
+      - kapacitor-data:/var/lib/kapacitor
+      - kapacitor-logs:/var/log/kapacitor
+    depends_on:
+      influxdb:
+        condition: service_healthy
+
+  kapacitor-init:
+    image: kapacitor:1.7
+    container_name: kapacitor-init
+    restart: "no"
+    user: root
+    entrypoint: ["/bin/sh", "/init.sh"]
+    environment:
+      KAPACITOR_URL: http://kapacitor:9092
+      TELEGRAM_ENABLED: ${TELEGRAM_ENABLED}
+    volumes:
+      - ./kapacitor/init.sh:/init.sh:ro
+      - ./kapacitor/tasks:/tasks:ro
+      - ./kapacitor/handlers:/handlers:ro
+    depends_on:
+      - kapacitor
+
+  chronograf:
+    <<: *restart
+    image: chronograf:1.10
+    container_name: chronograf
+    environment:
+      RESOURCES_PATH: /usr/share/chronograf/resources
+    ports:
+      - "8888:8888"
+    volumes:
+      - chronograf-data:/var/lib/chronograf
+      - ./chronograf/resources:/usr/share/chronograf/resources:ro
+    depends_on:
+      influxdb:
+        condition: service_healthy
+      kapacitor:
+        condition: service_started
+
+volumes:
+  mysql-data:
+  wordpress:
+  nginx-logs:
+  influxdb-data:
+  kapacitor-data:
+  kapacitor-logs:
+  chronograf-data:

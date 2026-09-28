@@ -1,0 +1,20 @@
+// 5xx в nginx за последнюю минуту: warn >= 1, crit >= 5
+// данные из access-лога
+stream
+    |from()
+        .measurement('nginx_access')
+    |eval(lambda: if("status" >= 500.0, 1.0, 0.0))
+        .as('is_5xx')
+    |window()
+        .period(1m)
+        .every(15s)
+    |sum('is_5xx')
+        .as('errors_5xx')
+    |alert()
+        .id('nginx_5xx')
+        .message('{{ .Level }}: nginx returned {{ index .Fields "errors_5xx" | printf "%.0f" }} responses with 5xx in the last minute')
+        .warn(lambda: "errors_5xx" >= 1.0)
+        .crit(lambda: "errors_5xx" >= 5.0)
+        .stateChangesOnly()
+        .log('/var/log/kapacitor/alerts.log')
+        .topic('cms')

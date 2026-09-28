@@ -1,0 +1,5 @@
+id: cms-telegram
+topic: cms
+kind: telegram
+options:
+  parse-mode: Markdown

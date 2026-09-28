@@ -1,0 +1,17 @@
+// диск /: warn > 80, crit > 90
+batch
+    |query('''
+        SELECT max("used_percent") AS "disk_used"
+        FROM "telegraf"."autogen"."disk"
+        WHERE "path" = '/'
+    ''')
+        .period(5m)
+        .every(1m)
+    |alert()
+        .id('disk_high')
+        .message('{{ .Level }}: disk / usage {{ index .Fields "disk_used" | printf "%.1f" }}%')
+        .warn(lambda: "disk_used" > 80.0)
+        .crit(lambda: "disk_used" > 90.0)
+        .stateChangesOnly()
+        .log('/var/log/kapacitor/alerts.log')
+        .topic('cms')

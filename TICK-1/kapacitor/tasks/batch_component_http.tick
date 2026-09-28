@@ -1,0 +1,16 @@
+// cms не отвечает по http (ждём 200 на http://nginx/)
+batch
+    |query('''
+        SELECT max("result_code") AS "result_code"
+        FROM "telegraf"."autogen"."http_response"
+    ''')
+        .period(1m)
+        .every(15s)
+        .groupBy('component')
+    |alert()
+        .id('{{ index .Tags "component" }}_http_down')
+        .message('{{ .Level }}: {{ index .Tags "component" }} HTTP check failed (result_code={{ index .Fields "result_code" }})')
+        .crit(lambda: "result_code" != 0)
+        .stateChangesOnly()
+        .log('/var/log/kapacitor/alerts.log')
+        .topic('cms')

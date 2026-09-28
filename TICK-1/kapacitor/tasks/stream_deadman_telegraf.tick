@@ -1,0 +1,11 @@
+// deadman: метрики хоста не приходят (упал telegraf или вся машина)
+stream
+    |from()
+        .measurement('cpu')
+        .where(lambda: "cpu" == 'cpu-total')
+    |deadman(0.0, 1m)
+        .id('telegraf_no_data')
+        .message('{{ .Level }}: no host metrics received from Telegraf for 1m')
+        .stateChangesOnly()
+        .log('/var/log/kapacitor/alerts.log')
+        .topic('cms')

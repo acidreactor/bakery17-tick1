@@ -1,0 +1,17 @@
+// nginx / php-fpm / mysql упали (tcp проверка из telegraf)
+// result_code != 0 значит порт не отвечает
+batch
+    |query('''
+        SELECT max("result_code") AS "result_code"
+        FROM "telegraf"."autogen"."net_response"
+    ''')
+        .period(1m)
+        .every(15s)
+        .groupBy('component')
+    |alert()
+        .id('{{ index .Tags "component" }}_tcp_down')
+        .message('{{ .Level }}: component {{ index .Tags "component" }} TCP check (result_code={{ index .Fields "result_code" }})')
+        .crit(lambda: "result_code" != 0)
+        .stateChangesOnly()
+        .log('/var/log/kapacitor/alerts.log')
+        .topic('cms')

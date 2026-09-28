@@ -1,0 +1,16 @@
+// память: warn > 80, crit > 90, среднее за 2 минуты
+batch
+    |query('''
+        SELECT mean("used_percent") AS "mem_used"
+        FROM "telegraf"."autogen"."mem"
+    ''')
+        .period(2m)
+        .every(30s)
+    |alert()
+        .id('mem_high')
+        .message('{{ .Level }}: memory usage {{ index .Fields "mem_used" | printf "%.1f" }}%')
+        .warn(lambda: "mem_used" > 80.0)
+        .crit(lambda: "mem_used" > 90.0)
+        .stateChangesOnly()
+        .log('/var/log/kapacitor/alerts.log')
+        .topic('cms')

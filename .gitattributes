@@ -1,0 +1,3 @@
+# чтобы sh-скрипты и конфиги не ломались из-за CRLF на windows
+* text=auto eol=lf
+*.sh text eol=lf

@@ -1,0 +1,19 @@
+// cpu: warn > 70, crit > 85, среднее за 2 минуты
+batch
+    |query('''
+        SELECT mean("usage_idle") AS "idle"
+        FROM "telegraf"."autogen"."cpu"
+        WHERE "cpu" = 'cpu-total'
+    ''')
+        .period(2m)
+        .every(30s)
+    |eval(lambda: 100.0 - "idle")
+        .as('cpu_used')
+    |alert()
+        .id('cpu_high')
+        .message('{{ .Level }}: CPU usage {{ index .Fields "cpu_used" | printf "%.1f" }}%')
+        .warn(lambda: "cpu_used" > 70.0)
+        .crit(lambda: "cpu_used" > 85.0)
+        .stateChangesOnly()
+        .log('/var/log/kapacitor/alerts.log')
+        .topic('cms')

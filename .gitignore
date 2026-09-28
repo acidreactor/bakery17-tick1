@@ -1,0 +1,11 @@
+.env
+!.env.example
+*.log
+*.db
+data/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~

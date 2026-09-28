@@ -1,0 +1,8 @@
+#!/bin/bash
+# юзер для telegraf, права минимальные
+mysql -uroot -p"${MYSQL_ROOT_PASSWORD}" <<SQL
+CREATE USER IF NOT EXISTS '${MYSQL_MONITOR_USER}'@'%' IDENTIFIED WITH mysql_native_password BY '${MYSQL_MONITOR_PASSWORD}' WITH MAX_USER_CONNECTIONS 5;
+GRANT PROCESS, REPLICATION CLIENT ON *.* TO '${MYSQL_MONITOR_USER}'@'%';
+GRANT SELECT ON performance_schema.* TO '${MYSQL_MONITOR_USER}'@'%';
+FLUSH PRIVILEGES;
+SQL
